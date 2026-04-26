@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elias Galindo-Lopez — Artist</title>
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow: #EBFF00;
+      --black: #000000;
+      --white: #ffffff;
+      --nav-w: 220px;
+      --header-h: 52px;
+      --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: var(--font);
+      background: var(--white);
+      color: var(--black);
+      overflow: hidden;
+    }
+
+    /* ─── HEADER ───────────────────────────────────────────────── */
+    #header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 100;
+    }
+
+    #header .name {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    #header .role {
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    /* ─── LAYOUT ───────────────────────────────────────────────── */
+    #layout {
+      display: flex;
+      height: 100vh;
+      padding-top: var(--header-h);
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────────── */
+    #nav {
+      width: var(--nav-w);
+      flex-shrink: 0;
+      padding: 28px 20px;
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+    }
+
+    #nav a {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--black);
+      line-height: 1.7;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    #nav a:hover { opacity: 0.5; }
+    #nav a.active { text-decoration: underline; }
+
+    /* ─── CONTENT ──────────────────────────────────────────────── */
+    #content {
+      margin-left: var(--nav-w);
+      flex: 1;
+      width: calc(100% - var(--nav-w));
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      padding: 28px 40px 60px 40px;
+      position: relative;
+    }
+
+    /* ─── SECTIONS ─────────────────────────────────────────────── */
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* ─── PROJECT LIST ─────────────────────────────────────────── */
+    .project-list { list-style: none; }
+
+    .project-list li {
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      line-height: 1.8;
+    }
+
+    .project-list li a {
+      text-decoration: none;
+      color: var(--black);
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .project-list li a:hover { opacity: 0.5; }
+
+    /* ─── PROJECT DETAIL ───────────────────────────────────────── */
+    #project-detail { display: none; }
+    #project-detail.active { display: block; }
+
+    .project-title {
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      text-decoration: underline;
+      margin-bottom: 24px;
+    }
+
+    .project-images {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .project-images img {
+      width: 100%;
+      display: block;
+      background: #e0e0e0;
+    }
+
+    .project-images .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #999;
+      transition: background 0.15s;
+    }
+
+    .project-text {
+      width: 100%;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .project-text p { margin-bottom: 1em; }
+
+    /* ─── CV LISTS ─────────────────────────────────────────────── */
+    .cv-list { list-style: none; }
+
+    .cv-list li {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.75;
+      display: flex;
+      gap: 16px;
+    }
+
+    .cv-list li .year {
+      font-weight: 900;
+      min-width: 36px;
+      flex-shrink: 0;
+    }
+
+    .cv-list li .desc { flex: 1; }
+
+    /* ─── INFO ─────────────────────────────────────────────────── */
+    .info-text {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.65;
+      max-width: 680px;
+    }
+
+    .info-text p { margin-bottom: 1.2em; }
+
+    .info-section-title {
+      font-size: 14px;
+      font-weight: 900;
+      margin-top: 2em;
+      margin-bottom: 0.5em;
+    }
+
+    /* ─── CONTACT ──────────────────────────────────────────────── */
+    .contact-text {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 2;
+    }
+
+    .contact-text a {
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .contact-text a:hover { text-decoration: underline; }
+
+    /* ─── BIRD ─────────────────────────────────────────────────── */
+    #bird {
+      position: fixed;
+      width: 32px;
+      height: auto;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0.75;
+      transition: transform 0.3s ease;
+    }
+
+    /* ─── BACK BTN ─────────────────────────────────────────────── */
+    .back-btn {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      margin-bottom: 20px;
+      padding: 4px 0;
+      border-bottom: 1.5px solid var(--black);
+      transition: opacity 0.15s;
+    }
+
+    .back-btn:hover { opacity: 0.5; }
+
+    /* ─── SCROLLBAR ────────────────────────────────────────────── */
+    #content::-webkit-scrollbar { width: 4px; }
+    #content::-webkit-scrollbar-track { background: transparent; }
+    #content::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    /* ─── IMAGES — NOIR & BLANC → COULEUR AU HOVER ────────────── */
+    .project-images img {
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+    .project-images img:hover { filter: grayscale(0%); }
+
+    /* ══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════════════════════════════ */
+
+    /* ─── TABLET (≤ 900px) ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      :root { --nav-w: 160px; }
+      #header .name, #header .role { font-size: 13px; }
+      #nav a { font-size: 12px; }
+      #content { padding: 20px 24px 60px 24px; }
+    }
+
+    /* ─── MOBILE (≤ 640px) ─────────────────────────────────────── */
+    @media (max-width: 640px) {
+      :root { --header-h: 48px; }
+
+      /* Pas de curseur custom sur mobile */
+      #cursor-bird { display: none; }
+      * { cursor: auto !important; }
+
+      #header { padding: 0 14px; }
+      #header .name, #header .role { font-size: 11px; letter-spacing: 0; }
+
+      /* Layout vertical */
+      #layout { flex-direction: column; height: auto; overflow: visible; }
+
+      /* Nav horizontale scrollable */
+      #nav {
+        position: static;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 10px 14px;
+        gap: 20px;
+        border-bottom: 1px solid #eee;
+        -webkit-overflow-scrolling: touch;
+      }
+      #nav a { font-size: 11px; white-space: nowrap; line-height: 1.4; }
+
+      /* Content pleine largeur */
+      #content { margin-left: 0; height: auto; overflow-y: visible; padding: 20px 14px 60px 14px; }
+      html, body { overflow: auto; }
+
+      .project-list li { font-size: 15px; line-height: 2.2; }
+      .cv-list li { font-size: 13px; }
+      .info-text, .project-text { font-size: 13px; }
+      .contact-text { font-size: 14px; }
+
+      /* Lightbox mobile */
+      #lightbox-img-wrap img { max-width: 96vw; max-height: 70vh; }
+      #lightbox-close { top: 14px; right: 14px; font-size: 12px; }
+      #lightbox-nav button { font-size: 12px; }
+
+      /* Pas de hover sur mobile → couleur directe */
+      .project-images img { filter: grayscale(0%); }
+    }
+
+    @media (max-width: 380px) {
+      #header .name { font-size: 10px; }
+      #nav a { font-size: 10px; }
+    }
+
+    /* ─── CURSOR ───────────────────────────────────────────────── */
+    * { cursor: none !important; }
+
+    #cursor-bird {
+      position: fixed;
+      width: 38px;
+      height: auto;
+      pointer-events: none;
+      z-index: 9999;
+      transform-origin: center center;
+      transition: transform 0.12s ease;
+      top: 0; left: 0;
+    }
+
+    /* ─── LIGHTBOX ─────────────────────────────────────────────── */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: 88vw;
+      max-height: 82vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    #lightbox .lb-placeholder {
+      width: 70vw;
+      height: 55vh;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 13px;
+      font-family: var(--font);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 20px; right: 28px;
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      font-family: var(--font);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: none !important;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+    #lightbox-close:hover { opacity: 1; }
+
+    #lightbox-nav {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+    }
+
+    #lightbox-nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 13px;
+      font-weight: 900;
+      font-family: var(--font);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: none !important;
+      opacity: 0.5;
+      transition: opacity 0.15s;
+      padding: 4px 0;
+    }
+    #lightbox-nav button:hover { opacity: 1; }
+    #lightbox-nav button:disabled { opacity: 0.15; }
+
+    /* clickable images in project detail */
+    .project-images .img-placeholder:hover { background: #d8d8d8; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="header">
+    <span class="name">Elias Galindo-Lopez</span>
+    <span class="role">Artist</span>
+  </header>
+
+  <!-- LAYOUT -->
+  <div id="layout">
+
+    <!-- NAV -->
+    <nav id="nav">
+      <a data-section="all" class="active">All Projects</a>
+      <a data-section="exhibitions">Exhibitions</a>
+      <a data-section="performances">Performances</a>
+      <a data-section="residences">Residences</a>
+      <a data-section="workshops">Workshops</a>
+      <a data-section="informations">Informations</a>
+      <a data-section="contact">Contact</a>
+    </nav>
+
+    <!-- CONTENT -->
+    <main id="content">
+
+      <!-- ALL PROJECTS -->
+      <div class="section active" id="section-all">
+        <ul class="project-list">
+          <li><a data-project="thou-shall">Thou shall not kill me</a></li>
+          <li><a data-project="te-llevare">Te Llevaré</a></li>
+          <li><a data-project="que-te-pasa">Que te pasa</a></li>
+          <li><a data-project="cucucu">Cucucu</a></li>
+          <li><a data-project="a-venir">À venir</a></li>
+          <li><a data-project="prologue">Prologue</a></li>
+          <li><a data-project="nido">Nido</a></li>
+          <li><a data-project="entre-sierra">Entre sierra</a></li>
+          <li><a data-project="copilli">Copilli</a></li>
+          <li><a data-project="ruido">Ruido</a></li>
+          <li><a data-project="concealing">Concealing me</a></li>
+        </ul>
+      </div>
+
+      <!-- PROJECT DETAIL (shared) -->
+      <div id="project-detail">
+        <div class="back-btn" id="back-btn">← Retour</div>
+        <div class="project-title" id="detail-title"></div>
+        <div class="project-images" id="detail-images"></div>
+        <div class="project-text" id="detail-text"></div>
+      </div>
+
+      <!-- EXHIBITIONS -->
+      <div class="section" id="section-exhibitions">
+        <ul class="cv-list">
+          <li><span class="year">2025</span><span class="desc">Sin Feria, El Hub, Mexico, MX</span></li>
+          <li><span class="year">2025</span><span class="desc">Les Avant Choses, YGREC Centre d'Art, Paris, FR</span></li>
+          <li><span class="year">2025</span><span class="desc">Heritage, 7 édition du Festival Arts et Humanités, Cergy, FR</span></li>
+          <li><span class="year">2024</span><span class="desc">Animal, 8 édition du Festival du Regard, Cergy, FR</span></li>
+          <li><span class="year">2023</span><span class="desc">CÔTE/CÔTE, Musée du papier peint de Rixheim, FR</span></li>
+          <li><span class="year">2023</span><span class="desc">Flower Power, Jardin Botanique Jean-Marie Pelt, Nancy, FR</span></li>
+          <li><span class="year">2023</span><span class="desc">Le vent qui nous porte, Centre commercial Saint-Sébastien, Nancy, FR</span></li>
+          <li><span class="year">2022</span><span class="desc">Art et argent, Galerie 9, Nancy, FR</span></li>
+          <li><span class="year">2022</span><span class="desc">La pensée mimétique, Jardin Botanique Jean-Marie Pelt, Nancy, FR</span></li>
+          <li><span class="year">2021</span><span class="desc">Incendie, Galerie 9, Nancy, FR</span></li>
+          <li><span class="year">2020</span><span class="desc">Slash, Galerie S001, Nancy, FR</span></li>
+        </ul>
+      </div>
+
+      <!-- PERFORMANCES -->
+      <div class="section" id="section-performances">
+        <ul class="cv-list">
+          <li><span class="year">2025</span><span class="desc">One million years (past and future), performance de On Kawara, Bourse de Commerce—Pinault Collection, FR</span></li>
+          <li><span class="year">2025</span><span class="desc">Mira Betz's Show, Mexico, MX</span></li>
+          <li><span class="year">2024</span><span class="desc">La fable des abeilles, Sergei Tcherepnin—La République Cynique, Palais de Tokyo, Paris, FR</span></li>
+          <li><span class="year">2024</span><span class="desc">Rebreathing (Réinspiration), performance de Myriam Mihindou, Palais de Tokyo, Paris, FR</span></li>
+          <li><span class="year">2024</span><span class="desc">Gloria, Pile au Frasq, Le Générateur, Paris, FR</span></li>
+          <li><span class="year">2017</span><span class="desc">Mardi Love's Show, Mexico, MX</span></li>
+          <li><span class="year">2017</span><span class="desc">Mira Betz's Show and Mirapiece Theatre "Click Bait", Mexico, MX</span></li>
+          <li><span class="year">2016</span><span class="desc">Chorégraphie sur la Symphonie Fantastique de Hector Berlioz, avec l'Orchestre symphonique de l'Université de Guanajuato, MX</span></li>
+          <li><span class="year">2014</span><span class="desc">Rachel Brice's Show, Mexico, MX</span></li>
+          <li><span class="year">2013</span><span class="desc">Espiral, foro Universitario, Guanajuato, MX</span></li>
+          <li><span class="year">2012</span><span class="desc">Festival International Cervantino pour le spectacle "Quien habló del final de los libros", dans la programmation culturelle de l'État invité de Sinaloa, MX</span></li>
+          <li><span class="year">2011</span><span class="desc">CLETA Festival Cervantino Callejero, Guanajuato, MX</span></li>
+          <li><span class="year">2010</span><span class="desc">Espiral, foro Universitario, Guanajuato, MX</span></li>
+        </ul>
+      </div>
+
+      <!-- RESIDENCES -->
+      <div class="section" id="section-residences">
+        <ul class="cv-list">
+          <li><span class="year">2026</span><span class="desc">Villa Belleville, Paris, FR</span></li>
+          <li><span class="year">2026</span><span class="desc">Fondation Singer-Polignac, Paris, FR</span></li>
+        </ul>
+      </div>
+
+      <!-- WORKSHOPS -->
+      <div class="section" id="section-workshops">
+        <ul class="cv-list">
+          <li><span class="year">2025</span><span class="desc">Workshop Comment devenir paysage ? YGREC Centre d'Art, Paris, FR</span></li>
+          <li><span class="year">2024</span><span class="desc">Workshop Avenir, porte (à) voix International Agora Academy, Adelboden, CH</span></li>
+          <li><span class="year">2024</span><span class="desc">Workshop Avenir, porte (à) voix en partenariat avec le CRR de Boulogne-Billancourt, Paris, FR</span></li>
+          <li><span class="year">2021</span><span class="desc">Workshop Alien member pour le programme Égalité des chances, en partenariat avec la Fondation Culture et Diversité, Nancy, FR</span></li>
+        </ul>
+      </div>
+
+      <!-- INFORMATIONS -->
+      <div class="section" id="section-informations">
+        <div class="info-text">
+          <p>Né en 1989 au Mexique, Elias Galindo-Lopez vit et travaille à Paris. Artiste, danseur et interprète diplômé de l'École Nationale Supérieure d'Art et Design de Nancy (2023) et de l'École Nationale Supérieure d'Arts de Paris Cergy (2025), il pratique l'installation, le son et la sculpture, qui sont notamment activés par la performance pour incarner des conversations visuelles et auditives. La spiritualité, la dualité et le syncrétisme culturel sont au cœur de sa démarche.</p>
+          <p>Nourri par sa relation avec sa grand-mère, qui été bruja natural et yerbera (sorcière naturelle et herboriste), il entretient un lien actif avec les formes païennes de soin, du langage et du mouvement. Cette filiation traverse son travail et fait écho aux pensées de Marisol de la Cadena, Baptiste Morizot, Julieta Fierro et Eduardo Kohn, qui envisagent le vivant comme un tissu de relations sensibles et signifiantes. Fort de son expérience au sein d'un orchestre symphonique, il se positionne depuis l'écoute, qu'il considère comme un espace frondant de rassemblement et de divergence. Porté par ces influences, il explore les chimères où s'entrelacent l'animal, l'humain, le végétal et le minéral, pour esquisser d'autres possibilités d'habiter et de concevoir le monde.</p>
+          <p>En 2024, il prend part au Festival du Regard à Cergy avec un projet issu d'une collaboration de médiation autour du dialogue entre chants d'oiseaux et création musicale menée avec le CRR de Boulogne-Billancourt. La même année, il participe à plusieurs performances au Palais de Tokyo, notamment Rebreathing de l'artiste Myriam Mihindou.</p>
+          <p>En 2025, il est invité au Festival Arts et Humanités organisé par le Théâtre des Points Communs et fait partie des interprètes de la performance One million years (past and future) de l'artiste japonais On Kawara à la Bourse de Commerce—Pinault Collection.</p>
+
+          <div class="info-section-title">Formation dans les Arts Plastiques</div>
+          <ul class="cv-list">
+            <li><span class="year">2025–26</span><span class="desc">Filière Fresque et Art en Situation, Beaux-Arts de Paris, FR</span></li>
+            <li><span class="year">2023–25</span><span class="desc">DNSEP, École nationale supérieure d'Arts de Paris-Cergy, FR</span></li>
+            <li><span class="year">2020–23</span><span class="desc">DNA, École nationale supérieure d'Art et Design de Nancy, FR</span></li>
+          </ul>
+
+          <div class="info-section-title">Formation en Danse</div>
+          <ul class="cv-list">
+            <li><span class="year">2010–16</span><span class="desc">Cours de danses du Moyen-Orient avec Nadia Ashjaee basés sur la méthode de Suhaila et Jamila Salimpour</span></li>
+            <li><span class="year">2012–15</span><span class="desc">Cours de danse classique avec Manuel Vazquez</span></li>
+            <li><span class="year">2012</span><span class="desc">Séminaire de danse contemporaine avec José Gonzalez Besa et Vladimir Ipolitov de la compagnie de danse du Grand Théâtre de Genève</span></li>
+            <li><span class="year">2012–14</span><span class="desc">Séminaires de danse du Moyen-Orient avec Suhaila Salimpour</span></li>
+          </ul>
+
+          <div class="info-section-title">Expérience Professionnelle Danse</div>
+          <ul class="cv-list">
+            <li><span class="year">2012–15</span><span class="desc">Professeur assistant en danses du Moyen-Orient au "Nadia Ashjaee Dance Studio", Guanajuato, MX</span></li>
+          </ul>
+
+          <div class="info-section-title">Chargé des relations publiques</div>
+          <ul class="cv-list">
+            <li><span class="year">2014–18</span><span class="desc">Orchestre symphonique de Guanajuato, MX</span></li>
+            <li><span class="year">2011–14</span><span class="desc">Musée des Momies de Guanajuato, MX</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="section" id="section-contact">
+        <div class="contact-text">
+          <div><a href="mailto:elias.galipez@gmail.com">elias.galipez@gmail.com</a></div>
+          <div><a href="https://instagram.com/elias_galo" target="_blank">@elias_galo</a></div>
+          <div><a href="tel:+33616780231">+33 6 16 78 02 31</a></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- CURSOR BIRD -->
+  <svg id="cursor-bird" viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#222">
+      <ellipse cx="30" cy="22" rx="14" ry="8" />
+      <circle cx="44" cy="17" r="6" />
+      <polygon points="50,16 58,15 50,18" />
+      <polygon points="16,22 4,16 16,26" />
+      <ellipse cx="28" cy="17" rx="10" ry="4" transform="rotate(-15 28 17)" fill="#000"/>
+    </g>
+  </svg>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox">
+    <div id="lightbox-close">✕ Fermer</div>
+    <div id="lightbox-img-wrap"></div>
+    <div id="lightbox-nav">
+      <button id="lb-prev">← Préc.</button>
+      <button id="lb-next">Suiv. →</button>
+    </div>
+  </div>
+
+  <script>
+    // ─── DATA ───────────────────────────────────────────────────────
+    // Pour ajouter de vraies images : remplace null par le chemin ex: 'assets/images/thou-shall-1.jpg'
+    const projects = {
+      'thou-shall': {
+        title: 'Thou shall not kill me',
+        images: [null],
+        text: `<p>L'histoire d'une femme curandera<sup>1</sup> qui, grâce à son balai, survit à une attaque féminicide de la part de son mari ivre, a servi d'inspiration pour cette sculpture, un monument pour elle, cette héroïne au bouclier magique, telle une sorcière, le vivant<sup>2</sup>.</p>
+        <p>Le feuillage est récupéré des endroits à proximité du lieu d'exposition, dans les terrains à coté, où les herbes ont encore la liberté de pousser avant que le terrain ne soit pas rasé.</p>`
+      },
+      'a-venir': {
+        title: 'À venir',
+        images: [null],
+        text: `<p>Avez-vous déjà rêvé de devenir un oiseau ? Ou même un autre être, différent de l'humain ? Imaginez que vous en avez l'opportunité, en vous projetant dans un avenir lointain...</p>
+        <p>Ceci est le témoignage de deux conversations choisis après six mois d'échanges avec des enfants vivant à des latitudes différentes.</p>
+        <p>Ensemble, nous avons évoqué le chant des oiseaux, la musique, les couleurs, et la nature.</p>`
+      },
+      'te-llevare':   { title: 'Te Llevaré',    images: [null], text: '<p>Description du projet à venir.</p>' },
+      'que-te-pasa':  { title: 'Que te pasa',   images: [null], text: '<p>Description du projet à venir.</p>' },
+      'cucucu':       { title: 'Cucucu',         images: [null], text: '<p>Description du projet à venir.</p>' },
+      'prologue':     { title: 'Prologue',       images: [null], text: '<p>Description du projet à venir.</p>' },
+      'nido':         { title: 'Nido',           images: [null], text: '<p>Description du projet à venir.</p>' },
+      'entre-sierra': { title: 'Entre sierra',  images: [null], text: '<p>Description du projet à venir.</p>' },
+      'copilli':      { title: 'Copilli',        images: [null], text: '<p>Description du projet à venir.</p>' },
+      'ruido':        { title: 'Ruido',          images: [null], text: '<p>Description du projet à venir.</p>' },
+      'concealing':   { title: 'Concealing me', images: [null], text: '<p>Description du projet à venir.</p>' },
+    };
+
+    // ─── CURSOR BIRD ────────────────────────────────────────────────
+    const cursorBird = document.getElementById('cursor-bird');
+    let mx = -100, my = -100;
+    let cx = -100, cy = -100;
+    let prevCx = -100;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+
+    function updateCursor() {
+      // Smooth follow
+      cx += (mx - cx) * 0.18;
+      cy += (my - cy) * 0.18;
+
+      // Flip based on direction
+      const goingLeft = cx > mx + 2;
+      cursorBird.style.transform = `translate(${cx - 19}px, ${cy - 12}px) scaleX(${goingLeft ? -1 : 1})`;
+      prevCx = cx;
+
+      requestAnimationFrame(updateCursor);
+    }
+    updateCursor();
+
+    // ─── NAVIGATION ─────────────────────────────────────────────────
+    const navLinks = document.querySelectorAll('#nav a');
+    const sections = document.querySelectorAll('.section');
+    const projectDetail = document.getElementById('project-detail');
+
+    function showSection(id) {
+      sections.forEach(s => s.classList.remove('active'));
+      projectDetail.classList.remove('active');
+      const target = document.getElementById('section-' + id);
+      if (target) target.classList.add('active');
+      navLinks.forEach(l => l.classList.toggle('active', l.dataset.section === id));
+      document.getElementById('content').scrollTop = 0;
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => showSection(link.dataset.section));
+    });
+
+    // ─── PROJECT DETAIL ──────────────────────────────────────────────
+    let currentProjectImages = [];
+
+    function showProject(key) {
+      const p = projects[key];
+      if (!p) return;
+
+      currentProjectImages = p.images;
+
+      sections.forEach(s => s.classList.remove('active'));
+      projectDetail.classList.add('active');
+      document.getElementById('detail-title').textContent = p.title;
+
+      const imagesEl = document.getElementById('detail-images');
+      imagesEl.innerHTML = '';
+
+      p.images.forEach((src, i) => {
+        if (src) {
+          const img = document.createElement('img');
+          img.src = src;
+          img.alt = p.title;
+          img.addEventListener('click', () => openLightbox(i));
+          imagesEl.appendChild(img);
+        } else {
+          const ph = document.createElement('div');
+          ph.className = 'img-placeholder';
+          ph.textContent = '[ image à venir ]';
+          ph.addEventListener('click', () => openLightbox(i));
+          imagesEl.appendChild(ph);
+        }
+      });
+
+      document.getElementById('detail-text').innerHTML = p.text;
+      document.getElementById('content').scrollTop = 0;
+    }
+
+    document.querySelectorAll('[data-project]').forEach(link => {
+      link.addEventListener('click', () => showProject(link.dataset.project));
+    });
+
+    document.getElementById('back-btn').addEventListener('click', () => showSection('all'));
+
+    // ─── LIGHTBOX ───────────────────────────────────────────────────
+    const lightbox    = document.getElementById('lightbox');
+    const lbWrap      = document.getElementById('lightbox-img-wrap');
+    const lbPrev      = document.getElementById('lb-prev');
+    const lbNext      = document.getElementById('lb-next');
+    const lbClose     = document.getElementById('lightbox-close');
+    let lbIndex = 0;
+
+    function openLightbox(i) {
+      lbIndex = i;
+      renderLightbox();
+      lightbox.classList.add('open');
+    }
+
+    function renderLightbox() {
+      lbWrap.innerHTML = '';
+      const src = currentProjectImages[lbIndex];
+      if (src) {
+        const img = document.createElement('img');
+        img.src = src;
+        lbWrap.appendChild(img);
+      } else {
+        const ph = document.createElement('div');
+        ph.className = 'lb-placeholder';
+        ph.textContent = '[ image à venir ]';
+        lbWrap.appendChild(ph);
+      }
+      lbPrev.disabled = lbIndex === 0;
+      lbNext.disabled = lbIndex === currentProjectImages.length - 1;
+    }
+
+    lbClose.addEventListener('click', () => lightbox.classList.remove('open'));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+    lbPrev.addEventListener('click', () => { if (lbIndex > 0) { lbIndex--; renderLightbox(); } });
+    lbNext.addEventListener('click', () => { if (lbIndex < currentProjectImages.length - 1) { lbIndex++; renderLightbox(); } });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') lightbox.classList.remove('open');
+      if (e.key === 'ArrowLeft' && lbIndex > 0) { lbIndex--; renderLightbox(); }
+      if (e.key === 'ArrowRight' && lbIndex < currentProjectImages.length - 1) { lbIndex++; renderLightbox(); }
+    });
+  </script>
+</body>
+</html>
