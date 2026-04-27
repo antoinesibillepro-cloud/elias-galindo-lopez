@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: antoinesibillepro-cloud/elias
+  repo: antoinesibillepro-cloud/elias-galindo-lopez
   branch: main
 
 media_folder: "images/uploads"
