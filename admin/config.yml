@@ -3,121 +3,15 @@ backend:
   repo: antoinesibillepro-cloud/elias
   branch: main
 
-# Dossier où les images uploadées seront stockées
-media_folder: "assets/images"
-public_folder: "/assets/images"
+media_folder: "images/uploads"
 
 collections:
-
-  # ── PROJETS ────────────────────────────────────────────────────
-  - name: "projects"
+  - name: "projets"
     label: "Projets"
-    folder: "content/projects"
+    folder: "_projets"
     create: true
-    slug: "{{slug}}"
     fields:
       - { label: "Titre", name: "title", widget: "string" }
-      - { label: "Image", name: "image", widget: "image", required: false }
-      - label: "Texte"
-        name: "body"
-        widget: "markdown"
-      - label: "Ordre d'affichage"
-        name: "order"
-        widget: "number"
-        default: 99
-
-  # ── EXHIBITIONS ────────────────────────────────────────────────
-  - name: "exhibitions"
-    label: "Exhibitions"
-    files:
-      - label: "Liste des exhibitions"
-        name: "exhibitions"
-        file: "content/exhibitions.yml"
-        fields:
-          - label: "Exhibitions"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Année", name: "year", widget: "string" }
-              - { label: "Description", name: "desc", widget: "string" }
-
-  # ── PERFORMANCES ───────────────────────────────────────────────
-  - name: "performances"
-    label: "Performances"
-    files:
-      - label: "Liste des performances"
-        name: "performances"
-        file: "content/performances.yml"
-        fields:
-          - label: "Performances"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Année", name: "year", widget: "string" }
-              - { label: "Description", name: "desc", widget: "string" }
-
-  # ── RESIDENCES ─────────────────────────────────────────────────
-  - name: "residences"
-    label: "Résidences"
-    files:
-      - label: "Liste des résidences"
-        name: "residences"
-        file: "content/residences.yml"
-        fields:
-          - label: "Résidences"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Année", name: "year", widget: "string" }
-              - { label: "Description", name: "desc", widget: "string" }
-
-  # ── WORKSHOPS ──────────────────────────────────────────────────
-  - name: "workshops"
-    label: "Workshops"
-    files:
-      - label: "Liste des workshops"
-        name: "workshops"
-        file: "content/workshops.yml"
-        fields:
-          - label: "Workshops"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "Année", name: "year", widget: "string" }
-              - { label: "Description", name: "desc", widget: "string" }
-
-  # ── INFORMATIONS / BIO ─────────────────────────────────────────
-  - name: "informations"
-    label: "Informations"
-    files:
-      - label: "Bio & CV"
-        name: "informations"
-        file: "content/informations.yml"
-        fields:
-          - label: "Texte de présentation"
-            name: "bio"
-            widget: "markdown"
-          - label: "Formation Arts Plastiques"
-            name: "formation_arts"
-            widget: "list"
-            fields:
-              - { label: "Période", name: "year", widget: "string" }
-              - { label: "Description", name: "desc", widget: "string" }
-          - label: "Formation Danse"
-            name: "formation_danse"
-            widget: "list"
-            fields:
-              - { label: "Période", name: "year", widget: "string" }
-              - { label: "Description", name: "desc", widget: "string" }
-
-  # ── CONTACT ────────────────────────────────────────────────────
-  - name: "contact"
-    label: "Contact"
-    files:
-      - label: "Informations de contact"
-        name: "contact"
-        file: "content/contact.yml"
-        fields:
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Instagram (handle sans @)", name: "instagram", widget: "string" }
-          - { label: "Téléphone", name: "phone", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Description", name: "body", widget: "markdown" }
