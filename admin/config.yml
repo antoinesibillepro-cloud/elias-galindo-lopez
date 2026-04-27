@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: antoinesibillepro-cloud/elias
   branch: main
 
 # Dossier où les images uploadées seront stockées
