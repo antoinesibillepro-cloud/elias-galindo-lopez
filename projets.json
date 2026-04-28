@@ -1,20 +1,15 @@
 {
   "projets": [
-    {
-      "id": "thou-shall",
-      "title": "Thou shall not kill me",
-      "images": [],
-      "text": "<p>L'histoire d'une femme curandera...</p>"
-    },
-    { "id": "a-venir", "title": "À venir", "images": [], "text": "<p>Description.</p>" },
-    { "id": "te-llevare", "title": "Te Llevaré", "images": [], "text": "<p>Description.</p>" },
-    { "id": "que-te-pasa", "title": "Que te pasa", "images": [], "text": "<p>Description.</p>" },
-    { "id": "cucucu", "title": "Cucucu", "images": [], "text": "<p>Description.</p>" },
-    { "id": "prologue", "title": "Prologue", "images": [], "text": "<p>Description.</p>" },
-    { "id": "nido", "title": "Nido", "images": [], "text": "<p>Description.</p>" },
-    { "id": "entre-sierra", "title": "Entre sierra", "images": [], "text": "<p>Description.</p>" },
-    { "id": "copilli", "title": "Copilli", "images": [], "text": "<p>Description.</p>" },
-    { "id": "ruido", "title": "Ruido", "images": [], "text": "<p>Description.</p>" },
-    { "id": "concealing", "title": "Concealing me", "images": [], "text": "<p>Description.</p>" }
+    { "id": "thou-shall", "title": "Thou shall not kill me", "images": [], "text": "L'histoire d'une femme curandera qui, grâce à son balai, survit à une attaque féminicide." },
+    { "id": "a-venir", "title": "À venir", "images": [], "text": "Avez-vous déjà rêvé de devenir un oiseau ?" },
+    { "id": "te-llevare", "title": "Te Llevaré", "images": [], "text": "Description à venir." },
+    { "id": "que-te-pasa", "title": "Que te pasa", "images": [], "text": "Description à venir." },
+    { "id": "cucucu", "title": "Cucucu", "images": [], "text": "Description à venir." },
+    { "id": "prologue", "title": "Prologue", "images": [], "text": "Description à venir." },
+    { "id": "nido", "title": "Nido", "images": [], "text": "Description à venir." },
+    { "id": "entre-sierra", "title": "Entre sierra", "images": [], "text": "Description à venir." },
+    { "id": "copilli", "title": "Copilli", "images": [], "text": "Description à venir." },
+    { "id": "ruido", "title": "Ruido", "images": [], "text": "Description à venir." },
+    { "id": "concealing", "title": "Concealing me", "images": [], "text": "Description à venir." }
   ]
 }
