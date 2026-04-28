@@ -4,14 +4,21 @@ backend:
   branch: main
 
 media_folder: "images/uploads"
+public_folder: "/images/uploads"
 
 collections:
   - name: "projets"
     label: "Projets"
-    folder: "_projets"
-    create: true
-    fields:
-      - { label: "Titre", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime" }
-      - { label: "Image", name: "image", widget: "image" }
-      - { label: "Description", name: "body", widget: "markdown" }
+    files:
+      - name: "projets"
+        label: "Liste des projets"
+        file: "_data/projets.json"
+        fields:
+          - name: "body"
+            label: "Projets"
+            widget: "list"
+            fields:
+              - { label: "ID (ne pas modifier)", name: "id", widget: "string" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Images", name: "images", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
+              - { label: "Texte", name: "text", widget: "markdown" }
