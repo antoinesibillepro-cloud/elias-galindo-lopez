@@ -12,7 +12,7 @@ collections:
     files:
       - name: "projets"
         label: "Liste des projets"
-        file: "_data/projets.json"
+        file: "projets.json"
         fields:
           - name: "body"
             label: "Projets"
