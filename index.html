@@ -594,7 +594,7 @@
     let projects = {};
 
 async function loadProjects() {
-  const res = await fetch('/_data/projets.json');
+ const res = await fetch('/projets.json');
   const data = await res.json();
   data.forEach(p => { projects[p.id] = p; });
 
