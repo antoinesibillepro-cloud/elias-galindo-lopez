@@ -1,0 +1,82 @@
+media:
+  input: assets/images
+  output: /assets/images
+
+content:
+  - name: projects
+    label: Projets
+    type: collection
+    path: content/projects
+    view:
+      fields: [title]
+    fields:
+      - name: title
+        label: Titre
+        type: string
+      - name: image
+        label: Image
+        type: image
+      - name: body
+        label: Texte
+        type: rich-text
+
+  - name: exhibitions
+    label: Exhibitions
+    type: file
+    path: content/exhibitions.yml
+    fields:
+      - name: items
+        label: Exhibitions
+        type: object
+        list: true
+        fields:
+          - { name: year, label: Année, type: string }
+          - { name: desc, label: Description, type: string }
+
+  - name: performances
+    label: Performances
+    type: file
+    path: content/performances.yml
+    fields:
+      - name: items
+        label: Performances
+        type: object
+        list: true
+        fields:
+          - { name: year, label: Année, type: string }
+          - { name: desc, label: Description, type: string }
+
+  - name: residences
+    label: Résidences
+    type: file
+    path: content/residences.yml
+    fields:
+      - name: items
+        label: Résidences
+        type: object
+        list: true
+        fields:
+          - { name: year, label: Année, type: string }
+          - { name: desc, label: Description, type: string }
+
+  - name: workshops
+    label: Workshops
+    type: file
+    path: content/workshops.yml
+    fields:
+      - name: items
+        label: Workshops
+        type: object
+        list: true
+        fields:
+          - { name: year, label: Année, type: string }
+          - { name: desc, label: Description, type: string }
+
+  - name: contact
+    label: Contact
+    type: file
+    path: content/contact.yml
+    fields:
+      - { name: email, label: Email, type: string }
+      - { name: instagram, label: Instagram, type: string }
+      - { name: phone, label: Téléphone, type: string }
